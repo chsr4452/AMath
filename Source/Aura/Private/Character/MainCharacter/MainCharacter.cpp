@@ -3,12 +3,34 @@
 
 #include "Aura/Public/Characters/MainCharacter/MainCharacter.h"
 
+#include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+
 
 // Sets default values
 AMainCharacter::AMainCharacter()
 {
-	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	bReplicates = true;
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>("Camera");
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
+	
+	
+	SpringArmComponent->SetupAttachment(GetRootComponent());
+	SpringArmComponent->TargetArmLength = 1000;
+	SpringArmComponent->bInheritPitch = 0;
+	SpringArmComponent->bInheritYaw = 0;
+	SpringArmComponent->bInheritRoll = 0;
+
+	
+	SpringArmComponent->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
+	
+	CameraComponent->SetupAttachment(SpringArmComponent);
+
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+	GetCharacterMovement()->bOrientRotationToMovement = true;
 }
 
 // Called when the game starts or when spawned

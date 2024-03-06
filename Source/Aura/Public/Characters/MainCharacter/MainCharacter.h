@@ -6,6 +6,9 @@
 #include "Aura/Public/Characters/AuraCharacterBase.h"
 #include "MainCharacter.generated.h"
 
+class UCameraComponent;
+class USpringArmComponent;
+
 UCLASS()
 class AURA_API AMainCharacter : public AAuraCharacterBase
 {
@@ -18,9 +21,17 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:
-
+	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USpringArmComponent> SpringArmComponent;
+	
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UCameraComponent> CameraComponent;
+	
+private:
+	
+
 };

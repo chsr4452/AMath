@@ -23,6 +23,6 @@ void UAuraAnimInstanceBase::NativeUpdateAnimation(float DeltaSeconds)
 	if(AnimOwner)
 	{
 		CharSpeed = AnimOwner->GetVelocity().Size2D();
-		GEngine->AddOnScreenDebugMessage(1, 5.0, FColor::Red, FString::Printf(TEXT("%f"), CharSpeed));
+		// GEngine->AddOnScreenDebugMessage(1, 5.0, FColor::Red, FString::Printf(TEXT("%f"), CharSpeed));
 	}
 }

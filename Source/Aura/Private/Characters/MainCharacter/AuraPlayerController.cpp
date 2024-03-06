@@ -6,18 +6,21 @@
 #include "EnhancedInputComponent.h"
 AAuraPlayerController::AAuraPlayerController()
 {
-
+	bReplicates = true;
 }
 
 void AAuraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	checkf(AmathIMC == nullptr, TEXT("Set Input Mapping Context in Controller!"));
+	
+	check(AmathIMC);
 	UEnhancedInputLocalPlayerSubsystem* SubSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 
-	SubSystem->AddMappingContext(AmathIMC, 0);
-
+	if(SubSystem)
+	{
+		SubSystem->AddMappingContext(AmathIMC, 0);
+	}
+	
 	CurrentMouseCursor = EMouseCursor::Default;
 	bShowMouseCursor = true;
 
@@ -39,10 +42,15 @@ void AAuraPlayerController::Move(const FInputActionValue &InputActionValue)
 	const FVector2D InputValue = InputActionValue.Get<FVector2D>();
 	const FRotator PlayerRotation = GetControlRotation();
 	const FRotator YawRotation = FRotator(0.f, PlayerRotation.Yaw, 0.f);
-
-	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
+	
+	const FRotationMatrix RotationMatrix = FRotationMatrix(YawRotation);
+	const FVector ForwardDirection = RotationMatrix.GetUnitAxis(EAxis::X);
+	const FVector RightDirection = RotationMatrix.GetUnitAxis(EAxis::Y);
+	
+	GEngine->AddOnScreenDebugMessage(1, 5.0, FColor::Red, TEXT("YawRotation: ") + YawRotation.ToString());
+	GEngine->AddOnScreenDebugMessage(2, 5.0, FColor::Green, TEXT("ForwardDirection: ") + ForwardDirection.ToString());
+	GEngine->AddOnScreenDebugMessage(3, 5.0, FColor::Blue, TEXT("RightDirection: ") + RightDirection.ToString());
+	
 	if(APawn* ControlledPawn = GetPawn())
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection, InputValue.Y);
