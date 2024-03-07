@@ -47,9 +47,9 @@ void AAuraPlayerController::Move(const FInputActionValue &InputActionValue)
 	const FVector ForwardDirection = RotationMatrix.GetUnitAxis(EAxis::X);
 	const FVector RightDirection = RotationMatrix.GetUnitAxis(EAxis::Y);
 	
-	GEngine->AddOnScreenDebugMessage(1, 5.0, FColor::Red, TEXT("YawRotation: ") + YawRotation.ToString());
-	GEngine->AddOnScreenDebugMessage(2, 5.0, FColor::Green, TEXT("ForwardDirection: ") + ForwardDirection.ToString());
-	GEngine->AddOnScreenDebugMessage(3, 5.0, FColor::Blue, TEXT("RightDirection: ") + RightDirection.ToString());
+	// GEngine->AddOnScreenDebugMessage(1, 5.0, FColor::Red, TEXT("YawRotation: ") + YawRotation.ToString());
+	// GEngine->AddOnScreenDebugMessage(2, 5.0, FColor::Green, TEXT("ForwardDirection: ") + ForwardDirection.ToString());
+	// GEngine->AddOnScreenDebugMessage(3, 5.0, FColor::Blue, TEXT("RightDirection: ") + RightDirection.ToString());
 	
 	if(APawn* ControlledPawn = GetPawn())
 	{

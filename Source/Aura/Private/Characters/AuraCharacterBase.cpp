@@ -2,6 +2,8 @@
 
 
 #include "Aura/Public/Characters/AuraCharacterBase.h"
+#include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
+#include "GameplayAbilitySystem/AuraAttributeSet.h"
 
 
 // Sets default values
