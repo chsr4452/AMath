@@ -37,20 +37,6 @@ AMainCharacter::AMainCharacter()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 }
 
-// Called when the game starts or when spawned
-void AMainCharacter::BeginPlay()
-{
-	Super::BeginPlay();
-	if(AuraAttributeSet)
-	{
-			AuraAttributeSet->InitHealth(50);
-        	AuraAttributeSet->InitMaxHealth(100);
-        	AuraAttributeSet->InitMana(50);
-        	AuraAttributeSet->InitMaxMana(100);
-	}
-
-}
-
 // Called to bind functionality to input
 void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -79,4 +65,13 @@ void AMainCharacter::InitAbilityActorInfoAura()
 		AuraAbilitySystemComponent->InitAbilityActorInfo(PS, this);
 	}
 }
+
+
+// Called when the game starts or when spawned
+void AMainCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
 

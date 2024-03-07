@@ -17,7 +17,7 @@ class AURA_API AAuraCharacterBase : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AAuraCharacterBase();
-	
+	virtual UAuraAttributeSet* GetAttributeSet();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
