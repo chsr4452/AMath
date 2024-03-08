@@ -5,11 +5,14 @@
 
 #include "Camera/CameraComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "Characters/MainCharacter/AuraPlayerController.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/AuraAttributeSet.h"
 #include "PlayerState/AuraPlayerState.h"
+#include "UI/AuraHUD.h"
+#include "UI/AuraWidgetController.h"
 
 
 // Sets default values
@@ -63,6 +66,14 @@ void AMainCharacter::InitAbilityActorInfoAura()
 		check(AuraAbilitySystemComponent);
 		AuraAttributeSet = PS->GetAttributeSet();
 		AuraAbilitySystemComponent->InitAbilityActorInfo(PS, this);
+
+		if (AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(GetController()))
+		{
+			if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(AuraPlayerController->GetHUD()))
+			{
+				AuraHUD->InitOverlay(AuraAttributeSet, AuraAbilitySystemComponent);
+			}
+		}
 	}
 }
 
@@ -71,7 +82,9 @@ void AMainCharacter::InitAbilityActorInfoAura()
 void AMainCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+
+
 }
 
 
