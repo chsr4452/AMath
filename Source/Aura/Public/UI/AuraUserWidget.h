@@ -13,4 +13,5 @@ UCLASS()
 class AURA_API UAuraUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
+public:
 };

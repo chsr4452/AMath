@@ -4,14 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "AuraUserWidget.h"
-#include "OverlayWidget.generated.h"
+#include "AuraOverlayWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class AURA_API UOverlayWidget : public UAuraUserWidget
+class AURA_API UMyClass : public UAuraUserWidget
 {
 	GENERATED_BODY()
-public:
 };

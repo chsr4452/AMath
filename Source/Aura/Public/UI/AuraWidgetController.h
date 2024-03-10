@@ -6,20 +6,11 @@
 #include "UObject/Object.h"
 #include "AuraWidgetController.generated.h"
 
-class UAuraAbilitySystemComponent;
-class UAuraAttributeSet;
 /**
  * 
  */
-UCLASS(Blueprintable, BlueprintType)
+UCLASS()
 class AURA_API UAuraWidgetController : public UObject
 {
 	GENERATED_BODY()
-public:
-	UAuraWidgetController();
-	UPROPERTY(BlueprintReadWrite, Category = "Player Data")
-	TObjectPtr<UAuraAttributeSet> AuraAttributeSet;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Player Data")
-	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
 };

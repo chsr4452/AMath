@@ -2,8 +2,3 @@
 
 
 #include "UI/AuraWidgetController.h"
-
-UAuraWidgetController::UAuraWidgetController()
-{
-	
-}
