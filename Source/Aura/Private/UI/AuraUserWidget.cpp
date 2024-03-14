@@ -2,3 +2,11 @@
 
 
 #include "UI/AuraUserWidget.h"
+
+
+
+void UAuraUserWidget::SetWidgetController(UAuraWidgetController* WidgetControllerInput)
+{
+	WidgetController = WidgetControllerInput;
+	WidgetControllerSet();
+}

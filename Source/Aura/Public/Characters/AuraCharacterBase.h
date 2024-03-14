@@ -6,8 +6,8 @@
 #include "GameFramework/Character.h"
 #include "AuraCharacterBase.generated.h"
 
-class UAuraAttributeSet;
-class UAuraAbilitySystemComponent;
+class UAttributeSet;
+class UAbilitySystemComponent;
 
 UCLASS()
 class AURA_API AAuraCharacterBase : public ACharacter
@@ -17,7 +17,7 @@ class AURA_API AAuraCharacterBase : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AAuraCharacterBase();
-	virtual UAuraAttributeSet* GetAttributeSet();
+	virtual UAttributeSet* GetAttributeSet();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -26,8 +26,8 @@ protected:
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 
 	UPROPERTY()
-	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
-	TObjectPtr<UAuraAttributeSet> AuraAttributeSet;
+	TObjectPtr<UAttributeSet> AttributeSet;
 };

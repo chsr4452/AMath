@@ -2,9 +2,7 @@
 
 
 #include "Aura/Public/Characters/Enemy/EnemyCharacter.h"
-
-#include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
-#include "GameplayAbilitySystem/AuraAttributeSet.h"
+#include "AbilitySystemComponent.h"
 
 
 // Sets default values
@@ -12,10 +10,10 @@ AEnemyCharacter::AEnemyCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 
-	AuraAbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AuraAbilitySystemComponent");
-	AuraAbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
 	
-	AuraAttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AuraAttributeSet");
+	AttributeSet = CreateDefaultSubobject<UAttributeSet>("AttributeSet");
 
 
 }
@@ -25,7 +23,7 @@ void AEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
-    		AuraAbilitySystemComponent->InitAbilityActorInfo(this, this);
+    		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	
 	
 }

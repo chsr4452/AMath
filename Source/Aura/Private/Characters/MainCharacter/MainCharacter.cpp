@@ -11,6 +11,7 @@
 #include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/AuraAttributeSet.h"
 #include "PlayerState/AuraPlayerState.h"
+#include "UI/AuraHUD.h"
 
 
 // Sets default values
@@ -58,12 +59,21 @@ void AMainCharacter::PossessedBy(AController* NewController)
 
 void AMainCharacter::InitAbilityActorInfoAura()
 {
-	if(AAuraPlayerState* PS= Cast<AAuraPlayerState>(GetPlayerState()))
+	APlayerState* PS = GetPlayerState();
+	if(AAuraPlayerState* AuraPS = Cast<AAuraPlayerState>(PS))
 	{
-		AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(PS));
-		check(AuraAbilitySystemComponent);
-		AuraAttributeSet = PS->GetAttributeSet();
-		AuraAbilitySystemComponent->InitAbilityActorInfo(PS, this);
+		AbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(PS);
+		check(AbilitySystemComponent);
+		AttributeSet = Cast<AAuraPlayerState>(PS)->GetAttributeSet();
+		AbilitySystemComponent->InitAbilityActorInfo(PS, this);
+		if(APlayerController* PC = PS->GetPlayerController())
+		{
+			AAuraHUD* AuraHUD = Cast<AAuraHUD>(PC->GetHUD());
+			if(AuraHUD)
+			{
+				AuraHUD->InitOverlayWidget(AttributeSet, AbilitySystemComponent, PC, PS);
+			}
+		}
 
 	}
 }

@@ -9,12 +9,12 @@
 AAuraPlayerState::AAuraPlayerState()
 {
 	NetUpdateFrequency = 100;
-	AuraAbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AuraAbilitySystemComponent");
-	AuraAbilitySystemComponent->SetIsReplicated(true);
-	AuraAbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 	
-	AuraAttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AuraAttributeSet");
-
+	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
+	UAuraAttributeSet* AuraAttributeSet = Cast<UAuraAttributeSet>(AttributeSet);
 	if(AuraAttributeSet)
 	{
 		AuraAttributeSet->InitHealth(50);
@@ -24,7 +24,8 @@ AAuraPlayerState::AAuraPlayerState()
 	}
 }
 
-UAuraAttributeSet* AAuraPlayerState::GetAttributeSet()
+UAttributeSet* AAuraPlayerState::GetAttributeSet()
 {
-	return AuraAttributeSet;
+	return AttributeSet;
 }
+

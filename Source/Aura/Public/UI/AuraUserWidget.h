@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "AuraUserWidget.generated.h"
 
+class UAuraWidgetController;
 /**
  * 
  */
@@ -14,4 +15,12 @@ class AURA_API UAuraUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
 public:
+	UFUNCTION(BlueprintCallable)
+	void SetWidgetController(UAuraWidgetController* WidgetController);
+
+	UPROPERTY()
+	TObjectPtr<UAuraWidgetController> WidgetController;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void WidgetControllerSet();
 };

@@ -16,9 +16,9 @@ AAuraCharacterBase::AAuraCharacterBase()
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
-UAuraAttributeSet* AAuraCharacterBase::GetAttributeSet()
+UAttributeSet* AAuraCharacterBase::GetAttributeSet()
 {
-	return AuraAttributeSet;
+	return AttributeSet;
 }
 
 // Called when the game starts or when spawned

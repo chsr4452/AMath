@@ -33,6 +33,7 @@ void AEffectActor::OnOverLapActor(UPrimitiveComponent* OverlappedComponent, AAct
 	GEngine->AddOnScreenDebugMessage(1, 5, FColor::Red, "Overlapped");
 	
 	AMainCharacter* MainChar = Cast<AMainCharacter>(OtherActor);
-	UAuraAttributeSet* Attribute = MainChar->GetAttributeSet();
+	UAttributeSet* AttributeSet = MainChar->GetAttributeSet();
+	UAuraAttributeSet* Attribute = Cast<UAuraAttributeSet>(AttributeSet);
 	Attribute->SetHealth(Attribute->GetHealth() + 50.f);
 }
