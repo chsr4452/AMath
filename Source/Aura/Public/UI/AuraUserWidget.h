@@ -18,7 +18,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetController(UAuraWidgetController* WidgetController);
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly, Category= "Widget")
 	TObjectPtr<UAuraWidgetController> WidgetController;
 
 	UFUNCTION(BlueprintImplementableEvent)

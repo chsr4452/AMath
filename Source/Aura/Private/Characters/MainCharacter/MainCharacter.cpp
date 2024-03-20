@@ -5,10 +5,8 @@
 
 #include "Camera/CameraComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "Characters/MainCharacter/AuraPlayerController.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/AuraAttributeSet.h"
 #include "PlayerState/AuraPlayerState.h"
 #include "UI/AuraHUD.h"
@@ -64,7 +62,7 @@ void AMainCharacter::InitAbilityActorInfoAura()
 	{
 		AbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(PS);
 		check(AbilitySystemComponent);
-		AttributeSet = Cast<AAuraPlayerState>(PS)->GetAttributeSet();
+		AttributeSet = AuraPS->GetAttributeSet();
 		AbilitySystemComponent->InitAbilityActorInfo(PS, this);
 		if(APlayerController* PC = PS->GetPlayerController())
 		{

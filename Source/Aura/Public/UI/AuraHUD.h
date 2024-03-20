@@ -6,6 +6,7 @@
 #include "GameFramework/HUD.h"
 #include "AuraHUD.generated.h"
 
+class UAuraUserWidget;
 class UAbilitySystemComponent;
 class UAttributeSet;
 struct FControllerParams;
@@ -21,7 +22,7 @@ class AURA_API AAuraHUD : public AHUD
 	GENERATED_BODY()
 	
 public:
-	TObjectPtr<UUserWidget> OverlayWidget;
+	TObjectPtr<UAuraUserWidget> OverlayWidget;
 
 	UOverlayWidgetController* GetWidgetController(FControllerParams &ControllParams);
 

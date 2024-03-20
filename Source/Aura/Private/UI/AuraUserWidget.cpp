@@ -9,4 +9,5 @@ void UAuraUserWidget::SetWidgetController(UAuraWidgetController* WidgetControlle
 {
 	WidgetController = WidgetControllerInput;
 	WidgetControllerSet();
+	// GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "WidgetControllerSet Event");
 }

@@ -19,7 +19,7 @@ AAuraPlayerState::AAuraPlayerState()
 	{
 		AuraAttributeSet->InitHealth(50);
 		AuraAttributeSet->InitMaxHealth(100);
-		AuraAttributeSet->InitMana(50);
+		AuraAttributeSet->InitMana(100);
 		AuraAttributeSet->InitMaxMana(100);
 	}
 }
