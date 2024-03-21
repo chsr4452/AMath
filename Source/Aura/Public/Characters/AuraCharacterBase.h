@@ -4,13 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
 #include "AuraCharacterBase.generated.h"
+
 
 class UAttributeSet;
 class UAbilitySystemComponent;
 
 UCLASS()
-class AURA_API AAuraCharacterBase : public ACharacter
+class AURA_API AAuraCharacterBase : public ACharacter,  public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -18,6 +20,7 @@ public:
 	// Sets default values for this character's properties
 	AAuraCharacterBase();
 	virtual UAttributeSet* GetAttributeSet();
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -4,24 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "EffectActor.generated.h"
-
-class UAuraGameplayEffect;
-class UGameplayEffect;
-class USphereComponent;
+#include "EffectActorInf.generated.h"
 
 UCLASS()
-class AURA_API AEffectActor : public AActor
+class AURA_API AEffectActorInf : public AActor
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	AEffectActor();
+	AEffectActorInf();
 
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	
 	UPROPERTY(EditAnywhere, Category="User Property")
 	TObjectPtr<USphereComponent> Sphere;
 	

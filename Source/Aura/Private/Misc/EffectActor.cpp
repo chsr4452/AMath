@@ -5,6 +5,8 @@
 #include "GameplayAbilitySystem/AuraAttributeSet.h"
 #include "Characters/MainCharacter/MainCharacter.h"
 #include "Components/SphereComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "GameplayAbilitySystem/AuraGameplayEffect.h"
 
 
 // Sets default values
@@ -24,16 +26,20 @@ AEffectActor::AEffectActor()
 void AEffectActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AEffectActor::OnOverLapActor(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	// GEngine->AddOnScreenDebugMessage(1, 5, FColor::Red, "Overlapped");
-	
-	AMainCharacter* MainChar = Cast<AMainCharacter>(OtherActor);
-	UAttributeSet* AttributeSet = MainChar->GetAttributeSet();
-	UAuraAttributeSet* Attribute = Cast<UAuraAttributeSet>(AttributeSet);
-	Attribute->SetHealth(Attribute->GetHealth() + 5.f);
+	ApplyEffectToTarget(OtherActor, GameplayEffectClassInput);
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Overlap");}
+
+void AEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
+{
+		UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+		if (TargetASC == nullptr) return;
+		FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
+		UGameplayEffect* EffectInstance = NewObject<UGameplayEffect>(GetTransientPackage(), GameplayEffectClass);
+		TargetASC->ApplyGameplayEffectToSelf(EffectInstance, 1, EffectContextHandle);
 }
+

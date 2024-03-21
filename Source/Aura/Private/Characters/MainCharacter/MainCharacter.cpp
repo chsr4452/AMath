@@ -55,6 +55,11 @@ void AMainCharacter::PossessedBy(AController* NewController)
 	InitAbilityActorInfoAura();
 }
 
+UAbilitySystemComponent* AMainCharacter::GetAbilitySystemComponent() const
+{
+	return Super::GetAbilitySystemComponent();
+}
+
 void AMainCharacter::InitAbilityActorInfoAura()
 {
 	APlayerState* PS = GetPlayerState();
