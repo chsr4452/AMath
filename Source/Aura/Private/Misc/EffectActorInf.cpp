@@ -15,32 +15,56 @@ AEffectActorInf::AEffectActorInf()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
 	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
 	SetRootComponent(Sphere);
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	Mesh->SetupAttachment(GetRootComponent());
-	
 	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AEffectActorInf::OnOverLapActor);
+	Sphere->OnComponentEndOverlap.AddDynamic(this, &AEffectActorInf::OnEndOverlap);
+	Sphere->OnComponentEndOverlap.AddDynamic(this, &AEffectActorInf::Test);
 }
 
 void AEffectActorInf::OnOverLapActor(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	ApplyEffectToTarget(OtherActor, GameplayEffectClassInput);
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Overlap");
+	ApplyEffectToTarget(OtherActor);
 }
 
-void AEffectActorInf::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
+void AEffectActorInf::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	RemoveEffectOffTarget(OtherActor);
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "EndOverlap");
+}
+
+void AEffectActorInf::ApplyEffectToTarget(AActor* TargetActor)
 {
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 	if (TargetASC == nullptr) return;
+	if(GameplayEffectClassInput)
+	{
+		EffectInstance = NewObject<UGameplayEffect>(GetTransientPackage(), GameplayEffectClassInput);
+	}
 	FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
-	UGameplayEffect* EffectInstance = NewObject<UGameplayEffect>(GetTransientPackage(), GameplayEffectClass);
-	TargetASC->ApplyGameplayEffectToSelf(EffectInstance, 1, EffectContextHandle);
 	
+	TargetASC->ApplyGameplayEffectToSelf(EffectInstance, 1, EffectContextHandle);
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Overlap");
+	
+}
+
+void AEffectActorInf::RemoveEffectOffTarget(AActor* TargetActor)
+{
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	if (TargetASC == nullptr) return;
+	
+	TargetASC->RemoveActiveGameplayEffectBySourceEffect(GameplayEffectClassInput, TargetASC);
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "EndOverlap");
+}
+
+void AEffectActorInf::Test(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "EndOverlap");
 }
 
 

@@ -32,7 +32,8 @@ void AEffectActor::OnOverLapActor(UPrimitiveComponent* OverlappedComponent, AAct
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	ApplyEffectToTarget(OtherActor, GameplayEffectClassInput);
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Overlap");}
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Overlap Instant New");
+}
 
 void AEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
@@ -41,5 +42,6 @@ void AEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGamepla
 		FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
 		UGameplayEffect* EffectInstance = NewObject<UGameplayEffect>(GetTransientPackage(), GameplayEffectClass);
 		TargetASC->ApplyGameplayEffectToSelf(EffectInstance, 1, EffectContextHandle);
+
 }
 

@@ -4,24 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "EffectActor.generated.h"
+#include "EffectActorTest.generated.h"
 
-class UAuraGameplayEffect;
 class UGameplayEffect;
 class USphereComponent;
 
 UCLASS()
-class AURA_API AEffectActor : public AActor
+class AURA_API AEffectActorTest : public AActor
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	AEffectActor();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	AEffectActorTest();
 	UPROPERTY(EditAnywhere, Category="User Property")
 	TObjectPtr<USphereComponent> Sphere;
 	
@@ -30,10 +25,16 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Effect Class")
 	TSubclassOf<UGameplayEffect> GameplayEffectClassInput;
-	
+
 	UFUNCTION()
 	virtual void OnOverLapActor(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 
+	UFUNCTION()
+	virtual void OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
+	
+	UFUNCTION(BlueprintCallable)
+	void RemoveEffectOffTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
 };
